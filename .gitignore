@@ -1,1 +1,8 @@
 .idea
+__pycache__/
+build/
+dist/
+*.spec
+*.exe
+config.json
+screenshots/

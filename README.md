@@ -1,13 +1,13 @@
-# 📸 ShadowSnap
+# 📸 GameShadowSnap
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)](https://www.microsoft.com/windows)
 
-**ShadowSnap** 是一款专为游戏玩家设计的轻量级截图工具。
+**GameShadowSnap** 是一款专为游戏玩家设计的轻量级截图工具。
 它运行在系统后台，能够实现**零干扰、不抢占焦点**的截图体验，完美支持全屏游戏模式。
 
-**ShadowSnap** is a lightweight screenshot tool designed specifically for gamers.
+**GameShadowSnap** is a lightweight screenshot tool designed specifically for gamers.
 It runs in the background, providing a **zero-interruption, non-focus-stealing** screenshot experience, perfect for exclusive fullscreen games.
 
 ---
@@ -23,19 +23,19 @@ It runs in the background, providing a **zero-interruption, non-focus-stealing**
 ## 🚀 快速开始 / Quick Start
 
 ### 方式一：直接运行 (Download EXE)
-如果你没有 Python 环境，请直接下载 Release 页面中的 `ShadowSnap.exe`。
+如果你没有 Python 环境，请直接下载 Release 页面中的 `GameShadowSnap.zip`。
 
 1. 下载并解压。
-2. **右键以管理员身份运行** `ShadowSnap.exe` (为了确保在游戏中能监听到按键)。
-3. 按下 `F9` 截图。
+2. **右键以管理员身份运行** `GameShadowSnap.exe` (为了确保在游戏中能监听到按键)。
+3. 按下 `F12` 截图。
 4. 在右下角托盘图标处右键可退出或查看文件。
 
 ### 方式二：源码运行 (Run from Source)
 
 ```bash
 # 1. 克隆仓库
-git clone [https://github.com/YourUsername/ShadowSnap.git](https://github.com/YourUsername/ShadowSnap.git)
-cd ShadowSnap
+git clone [https://github.com/StreLitziaYc/game_shadow_snap.git](https://github.com/StreLitziaYc/game_shadow_snap.git)
+cd game_shadow_snap
 
 # 2. 安装依赖
 pip install keyboard Pillow pystray
@@ -51,9 +51,10 @@ python screenshot_tool.py
 
 ```json
 {
-    "hotkey": "f9", 
-    "save_dir": "D:\\GameScreenshots",
-    "show_notification": true
+    "hotkey": "f12", 
+    "save_dir": ".\\screenshots",
+    "show_notification": true,
+    "suppress_key": true
 }
 
 ```
@@ -61,6 +62,7 @@ python screenshot_tool.py
 * `hotkey`: 触发按键 (例如: "f9", "ctrl+alt+a", "print screen")。
 * `save_dir`: 图片保存文件夹路径 (请使用双反斜杠 `\\` 或正斜杠 `/`)。
 * `show_notification`: 是否显示截图成功的悬浮提示 (`true` 或 `false`)。
+* `suppress_key`: 是否屏蔽触发按键 (`true` 或 `false`)。
 
 ## 🛠️ 构建指南 / Build Instructions
 
@@ -75,7 +77,7 @@ pip install pyinstaller
 
 2. 运行打包命令:
 ```bash
-pyinstaller -F -w --uac-admin --icon=camera.ico screenshot_tool.py
+pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." -n "GameShadowSnap" screenshot_tool.py
 
 ```
 
