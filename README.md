@@ -20,6 +20,8 @@ It runs in the background, providing a **zero-interruption, non-focus-stealing**
 - **📥 托盘管理 (System Tray)**: 最小化至右下角托盘，支持右键菜单快速打开截图文件夹。
 - **⚙️ 高度可配 (Configurable)**: 通过 `config.json` 轻松修改热键和保存路径。
 
+---
+
 ## 🚀 快速开始 / Quick Start
 
 ### 方式一：直接运行 (Download EXE)
@@ -64,6 +66,8 @@ python screenshot_tool.py
 * `show_notification`: 是否显示截图成功的悬浮提示 (`true` 或 `false`)。
 * `suppress_key`: 是否屏蔽触发按键 (`true` 或 `false`)。
 
+---
+
 ## 🛠️ 构建指南 / Build Instructions
 
 如果你想自己打包 exe 文件：
@@ -84,6 +88,8 @@ pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." -n "Ga
 
 *(注: `--uac-admin` 参数用于请求管理员权限，这对于在游戏中监听按键至关重要)*
 
+---
+
 ## ⚠️ 常见问题 / FAQ
 
 **Q: 为什么运行没反应？** A: 程序默认静默启动到右下角托盘，请检查任务栏右下角是否有相机图标。
@@ -91,6 +97,40 @@ pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." -n "Ga
 **Q: 为什么在游戏里按键没反应？** A: 请务必**以管理员身份运行**程序。部分带有反作弊系统的游戏可能会屏蔽底层键盘钩子。
 
 **Q: 杀毒软件报毒？** A: 由于使用了全局键盘监听 (Keyboard Hook) 和 PyInstaller 打包，可能会被误报。请将程序加入白名单。本项目完全开源，您可以自行审查代码。
+
+---
+
+## 🗺️ 路线规划 / Roadmap
+
+我们欢迎社区贡献！如果你对以下任何功能感兴趣，欢迎提交 PR。
+We welcome community contributions! If you are interested in any of the following features, feel free to submit a PR.
+
+### 🎨 交互与体验 / UI & UX
+- [ ] **UI 美化 (UI Polish)**: 优化提示框样式，支持圆角、渐变色、动画效果，甚至自定义皮肤。
+  - *Enhance notification design with rounded corners, gradients, animations, or custom themes.*
+- [ ] **配置界面 (GUI Settings)**: 开发一个可视化的设置窗口，不再依赖手动修改 `config.json`。
+  - *Develop a visual settings window to replace manual `config.json` editing.*
+- [ ] **音效反馈 (Sound Effect)**: 截图成功时播放清脆的快门声（可选开关）。
+  - *Play a shutter sound upon successful screenshot (toggleable).*
+
+### 🛠️ 核心功能增强 / Core Features
+- [ ] **智能分类 (Smart Sorting)**: 自动识别当前游戏进程名，将截图保存到对应的子文件夹（例如 `Screenshots/Cyberpunk2077/`）。
+  - *Auto-organize screenshots into subfolders based on the active game process name.*
+- [ ] **剪贴板支持 (Copy to Clipboard)**: 截图后自动复制到剪贴板，方便直接粘贴到微信/Discord。
+  - *Auto-copy to clipboard after screenshot for instant sharing.*
+- [ ] **自定义文件名 (Custom Filename)**: 允许用户定义文件名格式（如 `{GameName}_{Date}.png`）。
+  - *Allow users to define filename patterns.*
+
+
+### 🚀 高级功能 / Advanced
+- [ ] **手机快传 (Mobile Transfer)**: 截图后生成二维码，手机扫码即可立即下载图片到本地。
+  - *Generate a QR code to instantly download the latest screenshot to mobile devices.*
+- [ ] **简易编辑器 (Simple Editor)**: 截图后提供简单的裁剪、涂鸦、打码功能。
+  - *Provide simple cropping, drawing, and mosaic tools after capture.*
+- [ ] **图床上传 (Cloud Upload)**: 支持自动上传到 Imgur, AWS S3 或自定义图床，并生成分享链接。
+  - *Auto-upload to cloud storage and generate shareable links.*
+
+---
 
 ## 📄 许可证 / License
 
