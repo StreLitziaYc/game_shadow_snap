@@ -120,15 +120,22 @@ We welcome community contributions! If you are interested in any of the followin
   - *Auto-copy to clipboard after screenshot for instant sharing.*
 - [ ] **自定义文件名 (Custom Filename)**: 允许用户定义文件名格式（如 `{GameName}_{Date}.png`）。
   - *Allow users to define filename patterns.*
-
-
-### 🚀 高级功能 / Advanced
-- [ ] **手机快传 (Mobile Transfer)**: 截图后生成二维码，手机扫码即可立即下载图片到本地。
-  - *Generate a QR code to instantly download the latest screenshot to mobile devices.*
 - [ ] **简易编辑器 (Simple Editor)**: 截图后提供简单的裁剪、涂鸦、打码功能。
   - *Provide simple cropping, drawing, and mosaic tools after capture.*
-- [ ] **图床上传 (Cloud Upload)**: 支持自动上传到 Imgur, AWS S3 或自定义图床，并生成分享链接。
+
+### 📡 连接与扩展 / Connectivity & Extensions
+- [ ] **手机快传 (Mobile Transfer)**: 截图后生成二维码，手机扫码即可立即下载图片到本地。
+  - *Generate a QR code to instantly download the latest screenshot to mobile devices via local network.*
+- [ ] **自动更新 (Auto-Update)**: 启动时自动检测 GitHub Release 新版本并提示升级。
+  - *Check for updates on startup and notify users of new versions available on GitHub.*
+- [ ] **图床上传 (Cloud Upload)**: 支持自动上传到图床并生成分享链接。
   - *Auto-upload to cloud storage and generate shareable links.*
+
+### 💻 工程化与重构 / Engineering & Refactoring
+- [ ] **代码模块化 (Modularization)**: 重构当前单文件代码，拆分为配置管理、GUI、系统监听等独立模块，提升可扩展性。
+  - *Refactor the monolithic script into a modular architecture for better scalability and maintainability.*
+- [ ] **自动化构建 (CI/CD)**: 配置 GitHub Actions 实现自动打包 exe 并发布到 Releases，无需手动编译上传。
+  - *Implement GitHub Actions for automated building and releasing artifacts.*
 
 ---
 
