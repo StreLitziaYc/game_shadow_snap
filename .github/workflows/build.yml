@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build ShadowSnap
+    name: Build GameShadowSnap
     runs-on: windows-latest  # 必须用 Windows 环境构建，否则生成的 EXE 无法在 Windows 跑
 
     steps:
@@ -38,7 +38,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/ShadowSnap.exe  # 上传 dist 目录下的 exe
+          files: dist/GameShadowSnap.exe  # 上传 dist 目录下的 exe
           token: ${{ secrets.GITHUB_TOKEN }} # GitHub 自动生成的令牌，无需配置
           draft: false      # 是否设为草稿
           prerelease: false # 是否设为预发布
