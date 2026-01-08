@@ -39,17 +39,41 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 4. 执行打包命令 (和你本地运行的一模一样)
+      # 4. 打包生成 EXE
       - name: Build with PyInstaller
         run: |
           pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." -n "GameShadowSnap" screenshot_tool.py
 
-      # 5. 发布 Release 并上传 EXE
+      # 5. 生成默认 config.json 并打包成 Zip
+      - name: Create Config and Zip Package
+        shell: powershell
+        run: |
+          # A. 定义 JSON 内容并写入文件 (使用 UTF8 编码)
+          $configContent = '{
+              "hotkey": "f12",
+              "save_dir": "./screenshots",
+              "show_notification": true,
+              "suppress_key": true
+          }'
+          $configContent | Out-File -FilePath config.json -Encoding utf8
+
+          # B. 创建一个临时文件夹用来放要打包的东西
+          New-Item -ItemType Directory -Force -Path release_package
+
+          # C. 把 EXE 和 Config 复制进去
+          Copy-Item dist\GameShadowSnap.exe -Destination release_package\
+          Copy-Item config.json -Destination release_package\
+
+          # D. 压缩成 Zip
+          Compress-Archive -Path release_package\* -DestinationPath GameShadowSnap.zip
+
+      # 3. 发布 Release (上传的是 Zip 文件)
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/GameShadowSnap.exe  # 上传 dist 目录下的 exe
-          token: ${{ secrets.GITHUB_TOKEN }} # GitHub 自动生成的令牌，无需配置
-          draft: false      # 是否设为草稿
-          prerelease: false # 是否设为预发布
+          # 注意：这里改成了上传 zip
+          files: GameShadowSnap.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false
