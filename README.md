@@ -122,6 +122,8 @@ We welcome community contributions! If you are interested in any of the followin
   - *Allow users to define filename patterns.*
 - [ ] **简易编辑器 (Simple Editor)**: 截图后提供简单的裁剪、涂鸦、打码功能。
   - *Provide simple cropping, drawing, and mosaic tools after capture.*
+- [ ] **单实例检测 (Single Instance Check)**: 启动时自动检测是否已有 GameShadowSnap 在运行，若存在则询问用户是否重启，防止多开导致的热键冲突。
+  - *Detect active instances on startup and prompt the user to restart to prevent hotkey conflicts caused by multiple processes.*
 
 ### 📡 连接与扩展 / Connectivity & Extensions
 - [ ] **手机快传 (Mobile Transfer)**: 截图后生成二维码，手机扫码即可立即下载图片到本地。
@@ -134,7 +136,7 @@ We welcome community contributions! If you are interested in any of the followin
 ### 💻 工程化与重构 / Engineering & Refactoring
 - [ ] **代码模块化 (Modularization)**: 重构当前单文件代码，拆分为配置管理、GUI、系统监听等独立模块，提升可扩展性。
   - *Refactor the monolithic script into a modular architecture for better scalability and maintainability.*
-- [ ] **自动化构建 (CI/CD)**: 配置 GitHub Actions 实现自动打包 exe 并发布到 Releases，无需手动编译上传。
+- [x] **自动化构建 (CI/CD)**: 配置 GitHub Actions 实现自动打包 exe 并发布到 Releases，无需手动编译上传。
   - *Implement GitHub Actions for automated building and releasing artifacts.*
 
 ---
