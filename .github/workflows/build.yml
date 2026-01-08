@@ -9,7 +9,7 @@ on:
   # 2. 【新增】当对 main 分支发起 PR 时触发（用于代码检查）
   pull_request:
     branches:
-      - main
+      - master
 
   # 3. 手动触发
   workflow_dispatch:
