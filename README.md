@@ -43,7 +43,7 @@ cd game_shadow_snap
 pip install keyboard Pillow pystray
 
 # 3. 运行 (需管理员权限终端)
-python screenshot_tool.py
+python main.py
 
 ```
 
@@ -54,7 +54,7 @@ python screenshot_tool.py
 ```json
 {
     "hotkey": "f12", 
-    "save_dir": ".\\screenshots",
+    "save_dir": "./screenshots",
     "show_notification": true,
     "suppress_key": true
 }
@@ -65,6 +65,29 @@ python screenshot_tool.py
 * `save_dir`: 图片保存文件夹路径 (请使用双反斜杠 `\\` 或正斜杠 `/`)。
 * `show_notification`: 是否显示截图成功的悬浮提示 (`true` 或 `false`)。
 * `suppress_key`: 是否屏蔽触发按键 (`true` 或 `false`)。
+
+### ⌨️ 按键配置参考 / Key Configuration Reference
+
+配置文件中的 `hotkey` 支持单键或组合键，组合键请使用 `+` 连接。不区分大小写。
+The `hotkey` supports single keys or combinations joined by `+`. Case insensitive.
+
+| 类型 / Type | 示例 / Examples |
+| :--- | :--- |
+| **功能键 (Function)** | `f1` ... `f12` |
+| **修饰键 (Modifiers)** | `ctrl`, `alt`, `shift`, `win` (Windows徽标键) |
+| **常用功能 (Common)** | `print screen`, `insert`, `home`, `page up`, `page down`, `delete`, `end` |
+| **字母数字 (Typing)** | `a` ... `z`, `0` ... `9`, `space`, `tab`, `enter`, `backspace` |
+| **小键盘 (Numpad)** | `num 0` ... `num 9`, `num lock`, `divide` (/), `multiply` (*), `subtract` (-), `add` (+) |
+
+**组合键示例 / Combination Examples:**
+* `"f12"`
+* `"ctrl+f12"`
+* `"alt+print screen"`
+* `"ctrl+shift+a"`
+
+> 🔗 **更多按键 / More Keys**:
+> 如果需要查询非常规按键（如多媒体键），请查阅 [Python Keyboard 库官方文档](https://github.com/boppreh/keyboard#common-key-names)。
+> For a complete list of supported key names, please refer to the official documentation.
 
 ---
 
@@ -81,7 +104,7 @@ pip install pyinstaller
 
 2. 运行打包命令:
 ```bash
-pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." -n "GameShadowSnap" screenshot_tool.py
+pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" -n "GameShadowSnap" main.py
 
 ```
 
@@ -134,7 +157,7 @@ We welcome community contributions! If you are interested in any of the followin
   - *Auto-upload to cloud storage and generate shareable links.*
 
 ### 💻 工程化与重构 / Engineering & Refactoring
-- [ ] **代码模块化 (Modularization)**: 重构当前单文件代码，拆分为配置管理、GUI、系统监听等独立模块，提升可扩展性。
+- [x] **代码模块化 (Modularization)**: 重构当前单文件代码，拆分为配置管理、GUI、系统监听等独立模块，提升可扩展性。
   - *Refactor the monolithic script into a modular architecture for better scalability and maintainability.*
 - [x] **自动化构建 (CI/CD)**: 配置 GitHub Actions 实现自动打包 exe 并发布到 Releases，无需手动编译上传。
   - *Implement GitHub Actions for automated building and releasing artifacts.*

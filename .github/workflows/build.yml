@@ -42,7 +42,7 @@ jobs:
       # 4. 打包生成 EXE
       - name: Build with PyInstaller
         run: |
-          pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." -n "GameShadowSnap" screenshot_tool.py
+          pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" -n "GameShadowSnap" main.py
 
       # 5. 生成默认 config.json 并打包成 Zip
       - name: Create Config and Zip Package
@@ -67,7 +67,7 @@ jobs:
           # D. 压缩成 Zip
           Compress-Archive -Path release_package\* -DestinationPath GameShadowSnap.zip
 
-      # 3. 发布 Release (上传的是 Zip 文件)
+      # 6. 发布 Release (上传的是 Zip 文件)
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
