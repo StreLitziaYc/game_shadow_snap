@@ -38,13 +38,34 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          
+      # 4. 版本号注入 (Version Injection)
+      # 仅在打 Tag 时触发 (例如 v1.2.0)
+      - name: Inject Version into Code
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: powershell
+        run: |
+          $tag = "${{ github.ref_name }}"
+          echo "正在注入版本号: $tag"
+          
+          $path = "src/config.py"
+          $content = Get-Content $path
+          
+          # 正则替换：找到 APP_VERSION = ... 那一行，替换为当前 Tag
+          # 这里的逻辑是寻找 'APP_VERSION = ' 开头的内容进行整行替换，确保精准
+          $newContent = $content -replace 'APP_VERSION = .*', "APP_VERSION = `"$tag`""
+          
+          $newContent | Set-Content $path
+          
+          # 打印一下文件内容确认替换成功 (用于调试 Action 日志)
+          Get-Content $path | Select-String "APP_VERSION"
 
-      # 4. 打包生成 EXE
+      # 5. 打包生成 EXE
       - name: Build with PyInstaller
         run: |
           pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" -n "GameShadowSnap" main.py
 
-      # 5. 生成默认 config.json 并打包成 Zip
+      # 6. 生成默认 config.json 并打包成 Zip
       - name: Create Config and Zip Package
         shell: powershell
         run: |
@@ -67,7 +88,7 @@ jobs:
           # D. 压缩成 Zip
           Compress-Archive -Path release_package\* -DestinationPath GameShadowSnap.zip
 
-      # 6. 发布 Release (上传的是 Zip 文件)
+      # 7. 发布 Release (上传的是 Zip 文件)
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

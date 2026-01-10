@@ -2,3 +2,5 @@ keyboard
 Pillow
 pystray
 pyinstaller
+requests
+packaging
