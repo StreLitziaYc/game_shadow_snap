@@ -2,6 +2,10 @@ import json
 import os
 import sys
 
+# 优先读取系统环境变量 'GSS_VERSION' (方便IDE调试)
+# 如果没有，默认为 'dev' (本地开发模式)
+# CI 打包时，GitHub Actions 会把这一行替换为具体 Tag
+APP_VERSION = os.getenv("GSS_VERSION", "dev")
 CONFIG_FILE = 'config.json'
 
 
@@ -18,30 +22,48 @@ class ConfigManager:
             "hotkey": "f12",
             "save_dir": "./screenshots",
             "show_notification": True,
-            "suppress_key": True
+            "suppress_key": True,
+            "auto_update": True,
+            "proxy_port": ""
         }
         self.data = self.load()
 
     def load(self):
+        # 1. 如果文件不存在，直接写入默认配置
         if not os.path.exists(CONFIG_FILE):
-            try:
-                with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
-                    json.dump(self.default_config, f, indent=4, ensure_ascii=False)
-            except:
-                pass
+            self.save(self.default_config)
             return self.default_config
 
         try:
             with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
                 user_config = json.load(f)
-                # 合并缺省配置
-                for key, value in self.default_config.items():
-                    if key not in user_config:
-                        user_config[key] = value
-                return user_config
+
+            # 2. 【核心逻辑】检查并补全字段
+            config_modified = False
+            for key, default_value in self.default_config.items():
+                if key not in user_config:
+                    # 发现缺少字段，补进去
+                    user_config[key] = default_value
+                    config_modified = True
+                    print(f"[Config] 检测到缺失字段 '{key}'，已自动补全。")
+
+            # 3. 如果有修改，立刻写回文件，这样用户打开 json 就能看到新字段了
+            if config_modified:
+                self.save(user_config)
+
+            return user_config
+
         except Exception as e:
-            print(f"配置读取失败: {e}")
+            print(f"配置读取失败: {e}，将使用默认配置。")
             return self.default_config
+
+    def save(self, data):
+        """保存配置到文件"""
+        try:
+            with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=4, ensure_ascii=False)
+        except Exception as e:
+            print(f"配置保存失败: {e}")
 
     def get(self, key, default=None):
         return self.data.get(key, default)

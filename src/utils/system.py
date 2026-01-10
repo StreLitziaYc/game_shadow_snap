@@ -1,10 +1,8 @@
 import ctypes
-import os
-from ctypes import wintypes
 
 
-# 设置 DPI 感知
 def set_dpi_awareness():
+    """设置 DPI 感知，防止界面模糊"""
     try:
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
     except Exception:
@@ -29,15 +27,3 @@ def get_current_monitor_bbox():
     mi.cbSize = ctypes.sizeof(MONITORINFO)
     user32.GetMonitorInfoW(hmonitor, ctypes.byref(mi))
     return (mi.rcMonitor.left, mi.rcMonitor.top, mi.rcMonitor.right, mi.rcMonitor.bottom)
-
-
-def get_unique_filepath(directory, filename_base, extension):
-    """生成不重复的文件名"""
-    filename = f"{filename_base}{extension}"
-    filepath = os.path.join(directory, filename)
-    counter = 1
-    while os.path.exists(filepath):
-        filename = f"{filename_base}_{counter}{extension}"
-        filepath = os.path.join(directory, filename)
-        counter += 1
-    return filepath, filename

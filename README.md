@@ -64,7 +64,9 @@ python main.py
 * `hotkey`: 触发按键 (例如: "f9", "ctrl+alt+a", "print screen")。
 * `save_dir`: 图片保存文件夹路径 (请使用双反斜杠 `\\` 或正斜杠 `/`)。
 * `show_notification`: 是否显示截图成功的悬浮提示 (`true` 或 `false`)。
-* `suppress_key`: 是否屏蔽触发按键 (`true` 或 `false`)。
+* `suppress_key`: 是否屏蔽触发按键 (独占模式) (`true` 或 `false`)。
+* `auto_update`: 是否开启启动时自动检查更新 (`true` 或 `false`)。
+* `proxy_port`: **本地代理端口**。如**遇到更新网络问题**，请设置此项 (Clash默认端口一般是 "7890") (`7890`或`"7890"`)。
 
 ### ⌨️ 按键配置参考 / Key Configuration Reference
 
@@ -120,6 +122,9 @@ pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-
 **Q: 为什么在游戏里按键没反应？** A: 请务必**以管理员身份运行**程序。部分带有反作弊系统的游戏可能会屏蔽底层键盘钩子。
 
 **Q: 杀毒软件报毒？** A: 由于使用了全局键盘监听 (Keyboard Hook) 和 PyInstaller 打包，可能会被误报。请将程序加入白名单。本项目完全开源，您可以自行审查代码。
+
+**Q: 更新遇到网络问题？检查更新失败 or 下载速度极慢** A: 本软件的自动更新功能通过拉取 **GitHub Releases** 实现。 如果您遇到上述问题，建议开启系统代理（梯子），并将代理软件的端口号填入 `config.json` 的 `proxy_port` 字段。**更新后请重启软件生效**。
+
 
 ---
 
