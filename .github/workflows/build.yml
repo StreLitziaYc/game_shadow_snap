@@ -74,7 +74,9 @@ jobs:
               "hotkey": "f12",
               "save_dir": "./screenshots",
               "show_notification": true,
-              "suppress_key": true
+              "suppress_key": true,
+              "auto_update": true,
+              "proxy_port": ""
           }'
           $configContent | Out-File -FilePath config.json -Encoding utf8
 
