@@ -14,6 +14,7 @@ from .config import APP_VERSION, config
 
 REPO_OWNER = "StreLitziaYc"
 REPO_NAME = "game_shadow_snap"
+UPDATE_TEMP_FILE = "update_temp.zip"
 
 
 class UpdateManager:
@@ -85,6 +86,12 @@ class UpdateManager:
                     print(f"[Updater] 已清理旧版本备份: {old_exe}")
                 except Exception as e:
                     print(f"[Updater] 清理旧版本失败: {e}")
+            if os.path.exists(UPDATE_TEMP_FILE):
+                try:
+                    os.remove(UPDATE_TEMP_FILE)
+                    print(f"[Updater] 已清理更新临时文件: {UPDATE_TEMP_FILE}")
+                except Exception as e:
+                    print(f"[Updater] 清理更新临时文件失败: {e}")
 
     def check_for_updates(self, silent=False):
         """检查更新主入口"""
@@ -171,7 +178,7 @@ class UpdateManager:
             t.start()
 
     def _download_and_install(self, url, version_tag):
-        temp_zip = os.path.join(self.app_dir, "update_temp.zip")
+        temp_zip = os.path.join(self.app_dir, UPDATE_TEMP_FILE)
         temp_new_exe = os.path.join(self.app_dir, "GameShadowSnap.new")
 
         try:
