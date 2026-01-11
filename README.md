@@ -108,7 +108,7 @@ pip install pyinstaller
 
 2. 运行打包命令:
 ```bash
-pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" --collect-all certifi --collect-all requests -n "GameShadowSnap" main.py
+pyinstaller GameShadowSnap.spec
 
 ```
 
