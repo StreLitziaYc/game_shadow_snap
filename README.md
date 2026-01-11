@@ -56,7 +56,9 @@ python main.py
     "hotkey": "f12", 
     "save_dir": "./screenshots",
     "show_notification": true,
-    "suppress_key": true
+    "suppress_key": true,
+    "auto_update": true,
+    "proxy_port": ""
 }
 
 ```
@@ -106,7 +108,7 @@ pip install pyinstaller
 
 2. 运行打包命令:
 ```bash
-pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" -n "GameShadowSnap" main.py
+pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" --collect-all certifi --collect-all requests -n "GameShadowSnap" main.py
 
 ```
 
