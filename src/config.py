@@ -6,7 +6,16 @@ import sys
 # 如果没有，默认为 'dev' (本地开发模式)
 # CI 打包时，GitHub Actions 会把这一行替换为具体 Tag
 APP_VERSION = os.getenv("GSS_VERSION", "dev")
-CONFIG_FILE = 'config.json'
+# 确定配置文件的绝对路径，确保读写的是同一个文件
+if getattr(sys, 'frozen', False):
+    # 打包环境：使用 EXE 所在的目录
+    BASE_DIR = os.path.dirname(sys.executable)
+else:
+    # 开发环境：使用入口脚本 (main.py) 所在的目录
+    # sys.argv[0] 通常是 main.py 的路径
+    BASE_DIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+CONFIG_FILE = os.path.join(BASE_DIR, 'config.json')
 
 
 # 获取资源路径（兼容 PyInstaller）
@@ -37,6 +46,7 @@ class ConfigManager:
         try:
             with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
                 user_config = json.load(f)
+            print(f"[Config] 配置文件已加载: {user_config}")
 
             # 2. 【核心逻辑】检查并补全字段
             config_modified = False
