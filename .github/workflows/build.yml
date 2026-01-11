@@ -63,7 +63,7 @@ jobs:
       # 5. 打包生成 EXE
       - name: Build with PyInstaller
         run: |
-          pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" -n "GameShadowSnap" main.py
+          pyinstaller -F -w --uac-admin --icon=camera.ico --add-data "camera.ico;." --add-data "src;src" --collect-all certifi --collect-all requests -n "GameShadowSnap" main.py
 
       # 6. 生成默认 config.json 并打包成 Zip
       - name: Create Config and Zip Package
